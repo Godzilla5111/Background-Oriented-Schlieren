@@ -20,13 +20,13 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import scipy.misc
-import tkMessageBox
 import time
 from matplotlib import pyplot as plt
-from Tkinter import Tk
-from tkFileDialog import askopenfilename
+from tkinter import Tk,messagebox
+from tkinter.filedialog import askopenfilename
 from scipy.signal import kaiserord, lfilter, firwin, freqz
 from scipy import signal
+import imageio
 
 
 #------------------------------------------------------------
@@ -80,10 +80,10 @@ plt.imshow(Y, cmap='gray',clim=(-1.0, 1.0))
 
 #------------------------------------------------------------
 # ask user if they would like to save files
-saveChoice = tkMessageBox.askyesno('Save results?','Would you like to save the background?')
+saveChoice = messagebox.askyesno('Save results?','Would you like to save the background?')
 if saveChoice:
     outputFilename = 'BG_' +  waveform + '_' + orientation + '_' + str(int(wavelength)) + 'px_'  + time.strftime("%Y-%m-%d") +'.jpg'
-    scipy.misc.imsave(outputFilename, Y)
+    imageio.imwrite(outputFilename, Y)
     print('saved image as ' + outputFilename)
 else:
     print('You have chosen not to save the image')    

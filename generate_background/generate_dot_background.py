@@ -22,12 +22,13 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import scipy.misc
-import tkMessageBox
 import time
 from matplotlib import pyplot as plt
-from Tkinter import Tk
-from tkFileDialog import askopenfilename
+from tkinter import Tk
+import tkinter.messagebox as tkMessageBox
+from tkinter.filedialog import askopenfilename
 from scipy.signal import kaiserord, lfilter, firwin, freqz
+import imageio
 
 
 #------------------------------------------------------------
@@ -52,7 +53,7 @@ Y = np.around(y+shift)
 
 #------------------------------------------------------------
 # use dialate function to change size of dots
-kernel = np.ones((dotSize,dotSize),np.uint8)
+kernel = np.ones((int(dotSize),int(dotSize)),np.uint8)
 Ye = cv2.dilate(Y,kernel,iterations = 1)
 fig2=plt.figure()
 plt.imshow(Ye, cmap='gray')
@@ -64,7 +65,7 @@ plt.title('dot pattern for BOS.  dot size = '+str(dotSize)+' px, percent coverag
 saveChoice = tkMessageBox.askyesno('Save results?','Would you like to save the background?')
 if saveChoice:
     outputFilename = 'dot_BG_'+ str(dotSize) + 'px_'+str(percentCoverage) +'%_' + time.strftime("%Y-%m-%d") +'.jpg'
-    scipy.misc.imsave(outputFilename, Ye)
+    imageio.imwrite(outputFilename, Ye)
     print('saved image as ' + outputFilename)
 else:
     print('You have chosen not to save the image')    

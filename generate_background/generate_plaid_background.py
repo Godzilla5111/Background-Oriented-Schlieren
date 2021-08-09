@@ -21,8 +21,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.misc
 import cv2
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 import time
+import imageio
 
 
 def generateBackgroundImage(width,height,N,waveform,orientation):
@@ -106,7 +107,7 @@ if saveChoice:
     outputFilename = ('BG_' +  waveform1 + '_' + orientation1 + '_' + 
     str(int(wavelength1)) + 'px_' +  waveform1 + '_' + orientation1 + 
     '_' + str(int(wavelength1)) + 'px_' + time.strftime("%Y-%m-%d") +'.jpg')
-    scipy.misc.imsave(outputFilename, img)
+    imageio.imwrite(outputFilename, img)
     print('saved image as ' + outputFilename)
 else:
     print('You have chosen not to save the image')
